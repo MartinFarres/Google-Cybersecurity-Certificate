@@ -275,7 +275,7 @@ Purposes of internal security audit:
 
 **Goals:** Are an outline of the organization's security objectives.
 
-Example: [Audit_Scope_and_Goals](./Audit%20Scope%20and%20Goals.pdf)
+Example: [Audit_Scope_and_Goals](./Resources/Audit%20Scope%20and%20Goals.pdf)
 
 #### 2. Conducting a risk assessment,
 
@@ -313,3 +313,5 @@ recommendations need to be communicated to stakeholders.
 - Notes how quickly those risks need to be addressed,
 - Identifies compliance regulations,
 - Provides recommendations.
+
+## 3. Intro to Cybersecurity Tools
