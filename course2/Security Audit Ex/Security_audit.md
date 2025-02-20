@@ -26,4 +26,4 @@ To complete the checklist, open the supporting materials provided in Step 1. The
 
 2. Consider information provided in the report using the Controls Categories document.
 
-3. Then, review the [Controls_and_compliance_checklist]()and select “yes” or “no” to answer the question in each section (note: the recommendations section is optional).\*
+3. Then, review the [Controls_and_compliance_checklist](./Controls%20and%20compliance%20checklist.pdf)and select “yes” or “no” to answer the question in each section (note: the recommendations section is optional).
