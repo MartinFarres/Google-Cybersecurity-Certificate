@@ -315,3 +315,142 @@ recommendations need to be communicated to stakeholders.
 - Provides recommendations.
 
 ## 3. Intro to Cybersecurity Tools
+
+### Logs and SIEM Tools
+
+Three common log sources:
+
+- **Firewall Logs:** is a record of attempted or established connections for incoming traffic from the internet. It also includes outbound request to the internet from within the network
+- **Network Logs:** is a record of all computers and devices that enter and leave the network. It also records connections between devices and services on the network.
+- **Server Log:** is a recotd og ebents related to services, such as websites, emails, or file shares. It includes actions such as login, password, and username requests.
+
+A **SIEM tool** is then used to collect and analyze these log data to monitor critical activities in an organization.
+
+A **SIEM Dashboard** is then created whith these log data to create **Metrics** to better visualized the posible breaches, risk and/or vulnerabilities.
+
+**Metrics:** Key technical attributes, such as response time, availability, and failure rate, which are used to assess the performance of a software application.
+
+The implementation of automation will also help security teams respond faster to possible incidents, performing many actions without waiting for a human response. **Security orchestration, automation, and response (SOAR)** is a collection of applications, tools, and workflows that uses automation to respond to security events. Essentially, this means that handling common security-related incidents with the use of SIEM tools is expected to become a more streamlined process requiring less manual intervention.
+
+Different type of SIEM Tools:
+
+-
+- **Self Hosted**
+- **Cloud Hosted**
+- **Hybrid**
+- **Open-source Tools**
+- **Propietary Tools**
+
+### Splunk & Splunk Enterprise
+
+A self-hosted tool used to reatin, analyze, and search an organization's log data to provide security information and alerts in real-time.
+
+- Security Posture Dashboard: is designed for security operations center ( SOCs ). It displays the last 24 hours of an aorganization's notable security-related events and trends and allows security professionals to determine if security infrastructure and policies are performing as designed.
+
+- Incident review dashboard: allows analysts to identify suspicious patterns that can occur in the event of an aincident. It highlights higher risk items that need immediate review by an analyst.
+
+- Risk analysis dashboard: The risk analysis dashboard helps analysts identify risk for each risk object (e.g., a specific user, a computer, or an IP address). It shows changes in risk-related activity or behavior, such as a user logging in outside of normal working hours or unusually high network traffic from a specific computer.
+
+### Splunk Cloud & Chronicle
+
+Both are cloud-native tools designed to retain, analyze, and search data.
+
+#### Enterprise Insights Dashboard
+
+- Highlights recent alerts and identifies suspicious domain names (IOCs).
+- Provides confidence scores and severity levels for threats.
+- Helps security analysts monitor login and data access attempts from unusual locations or devices.
+
+#### Data Ingestion and Health Dashboard
+
+- Tracks event logs, log sources, and data processing success rates in Chronicle.
+- Ensures log sources are correctly configured and logs are received without error.
+- Helps address log-related issues for continuous security monitoring.
+
+#### IOC Matches Dashboard
+
+- Displays top threats, risks, and vulnerabilities over time.
+- Tracks domain names, IP addresses, and device IOCs to identify trends.
+- Assists security teams in prioritizing threats and investigating suspicious activities.
+
+#### Main Dashboard
+
+- Provides a high-level summary of data ingestion, alerts, and event activity.
+- Displays a security timeline to identify trends like spikes in failed login attempts.
+- Helps track threats across log sources, devices, IPs, and locations.
+
+#### Rule Detections Dashboard
+
+- Reports incidents with the highest occurrences, severities, and detections.
+- Lists all alerts triggered by specific detection rules (e.g., opening a malicious attachment).
+- Supports incident management and risk mitigation strategies.
+
+#### User Sign-In Overview Dashboard
+
+- Monitors user access behavior across the organization.
+- Identifies unusual sign-in activity, such as multiple locations at the same time.
+- Helps mitigate threats, risks, and vulnerabilities related to user accounts and applications.
+
+---
+
+### Suricata
+
+Is an open-source network analysis and threat detection software- Netowrk analysis and threat detectrion software is used to inspect network traffic to identify suspicious behavior and generate network data logs.
+
+## 4. Use Playbooks to Response to Incidents
+
+### Phases of an incident response playbook
+
+- **Incident Response**: An organization's quick attempt to identify an attack, contain the damage, and correct the effects of a security breach.
+
+#### 1. Prepare
+
+Organizations must prepare to
+mitigate the likelihood, risk,
+and impact of
+a security incident by documenting procedures,
+establishing staffing plans, and educating users.
+Preparation sets the foundation
+for successful incident response.
+For example, organizations
+can create incident response plans and
+procedures that outline the roles and
+responsibilities of each security team member.
+
+#### 2. Detection and Analysis
+
+The objective of this phase is to detect and analyze
+events using defined processes and technology.
+Using appropriate tools and
+strategies during this phase helps
+security analysts determine whether a breach has
+occurred and analyze its possible magnitude.
+
+#### 3. Containment
+
+The goal of containment is to prevent
+further damage and reduce
+the immediate impact of a security incident.
+
+#### 4. Eradication and Recovery
+
+This phase involves the complete removal of an incident's
+artifacts so that an organization
+can return to normal operations
+
+#### 5. Post-Incident Activity
+
+This phase includes documenting the incident,
+informing organizational leadership,
+and applying lessons learned to ensure that
+an organization is better
+prepared to handle future incidents.
+
+#### 6. Coordination
+
+Involves reporting incidents
+and sharing information, throughout
+the incident response process, based
+on the organization's established standards. It ensures that organizations meet
+compliance requirements and it
+allows for coordinated response and resolution.
