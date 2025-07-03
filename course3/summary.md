@@ -419,3 +419,100 @@ Some information you receive from a packet capture includes:
 - _Destination IP_: The destination IP address is where the packet is being transmitted to.
 
 - _Destination port_: This port number is where the packet is being transmitted to.
+
+### Network Attack Tactics and Defense
+
+#### Packet Sniffing
+
+Packet sniffing is the practice of using software tools to observe
+data as it moves across a network. As a security analyst, you may use packet sniffing to analyze and capture packets when investigating ongoing incidents
+or debugging network issues.
+
+Types of packet sniffing:
+
+1. Passive packet sniffing: A type of attack where data packets are read in transit.
+2. Active packet sniffing: A type of attack where data packets are manipulated in transit.
+
+#### How to protect against it?
+
+- _VPN_: Encrypt and protect data.
+- _Use HTTPS_: Uses SSL/TLS to prevent ease dropping.
+- _Prevent the use of public WIFI_.
+
+### IP Spoofing
+
+A network attack performed when an attacker changes the source IP of a data packet to impersonate an aauthorized system and gain access to a network.
+
+Common IP spoofing attacks:
+
+1. On-path attack: an attack where a malicious actor places themselves in the middle of an authorized connection and intercepts or alters the data in transit.
+
+2. Replay attack: A network attack performed when a malicious actor intercepts a data packet in transit and delays it or repeats it at another time.
+
+3. Smurf attack: A network attack performed when an attacker sniffs an authorized user's IP address and floods it with packets.
+
+#### How to protect against it?
+
+- _Firewalls_ can be configured to protect against IP spoofing. IP spoofing makes it seem like the malicious actor is an authorized user by changing the sender's address of the data packet to match the target network's address. So if a firewall receives a data packet from the internet where the sender's IP address is the same as the private network, then the firewall will deny the transmission since all the devices with that IP address should already be on the local network.
+
+## Module 4: Security Hardening
+
+The process of strenghtening a system to reduce its vulnerability and _attack surface_. An attack surface refers to, all the potential vulnerabilities that a threat actor could exploit.
+
+Security Hardening is conducted on;
+
+- Hardware
+- OS
+- Applications
+- Computer Networks
+- Databases
+- Physical Spaces
+
+The use of regular _Penetration Tests_ is also a good way of reducing the attack surface. A _penetration test_ is a simulated attack that helps identify vulnerabilities in systems, networks, websites, applications and processes.
+
+### OS Hardening
+
+It's important to secure the OS in each system because one insecure OS can lead to a whole network being compromised.
+
+#### Security Hardening practices:
+
+1. _Patch Update_: A software and operating system update that addresses security vulnerabilities within a program or product. Newly update OS shoudl be added to the **baseline configuration (baseline image)**. A **Baseline Image** is a documented set of specifications within a system that is used as a basis for future builds, releases, and updates.
+
+2. _Hardware and Software disposal_: Ensures that all old hardware is properly disposed. Delete all unused software applications, as they may have vulneravilities.
+
+3. _Stong password policies_
+
+#### Brute Force Attacks
+
+A brute force attack is a trial-and-error process of discovering private information. There are different types of brute force attacks that malicious actors use to guess passwords, including:
+
+- **Simple brute force attacks**. When attackers try to guess a user's login credentials, it’s considered a simple brute force attack. They might do this by entering any combination of usernames and passwords that they can think of until they find the one that works.
+
+- **Dictionary attacks use a similar technique**. In dictionary attacks, attackers use a list of commonly used passwords and stolen credentials from previous breaches to access a system. These are called “dictionary” attacks because attackers originally used a list of words from the dictionary to guess the passwords, before complex password rules became a common security practice.
+
+### Network Hardening Protocols
+
+#### Task regularly performed:
+
+- _Firewall rule maintanance_
+- **_Network log analysis_**: The process of examining network logs to identify events of interest. For this it is necessary to use a **SIEM tool**.
+- _Patch updates_
+- _Server backups_
+
+#### Task that are performed once:
+
+- _Port Filtering_: A firewall function that blocks or allows certain port nummbers to limit unwanted communication. Only the ports that are needed are the ports that are allowed.
+- _Network Segmentation_: To encapsulate and prevent the spreed of issues into all the network. Also to set a restricted zone.
+- _Latest Encryption Protocols_.
+- _Network access privilege_
+
+#### Network Security Applications
+
+![alt text](network-security-applications.png)
+
+| Devices / Tools                                  | Advantages                                                                                                                                      | Disadvantages                                                                                                                                                                 |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Firewall                                         | A firewall allows or blocks traffic based on a set of rules.                                                                                    | A firewall is only able to filter packets based on information provided in the header of the packets.                                                                         |
+| Intrusion Detection System (IDS)                 | An IDS detects and alerts admins about possible intrusions, attacks, and other malicious traffic.                                               | An IDS can only scan for known attacks or obvious anomalies; new and sophisticated attacks might not be caught. It doesn’t actually stop the incoming traffic.                |
+| Intrusion Prevention System (IPS)                | An IPS monitors system activity for intrusions and anomalies and takes action to stop them.                                                     | An IPS is an inline appliance. If it fails, the connection between the private network and the internet breaks. It might detect false positives and block legitimate traffic. |
+| Security Information and Event Management (SIEM) | A SIEM tool collects and analyzes log data from multiple network machines. It aggregates security events for monitoring in a central dashboard. | A SIEM tool only reports on possible security issues. It does not take any actions to stop or prevent suspicious events.                                                      |
