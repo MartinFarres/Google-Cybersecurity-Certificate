@@ -516,3 +516,68 @@ A brute force attack is a trial-and-error process of discovering private informa
 | Intrusion Detection System (IDS)                 | An IDS detects and alerts admins about possible intrusions, attacks, and other malicious traffic.                                               | An IDS can only scan for known attacks or obvious anomalies; new and sophisticated attacks might not be caught. It doesn’t actually stop the incoming traffic.                |
 | Intrusion Prevention System (IPS)                | An IPS monitors system activity for intrusions and anomalies and takes action to stop them.                                                     | An IPS is an inline appliance. If it fails, the connection between the private network and the internet breaks. It might detect false positives and block legitimate traffic. |
 | Security Information and Event Management (SIEM) | A SIEM tool collects and analyzes log data from multiple network machines. It aggregates security events for monitoring in a central dashboard. | A SIEM tool only reports on possible security issues. It does not take any actions to stop or prevent suspicious events.                                                      |
+
+### Cloud Hardening
+
+One distinction between cloud network hardening and traditional network hardening is the use of a server baseline image for all server instances stored in the cloud. This allows you to compare data in the cloud servers to the baseline image to make sure there haven't been any unverified changes.
+
+#### Cloud Security Considerations
+
+- **Identity Access Management**: is a coolection of processes and technologies that helps organizations manage digital identities in their environment. This service also authorizes hwo users can use different cloud resoutces.
+
+- **Configuration**: Each cloud service necessitates precise configuration to uphold security and compliance standars.
+
+- **Attack Sufrace**: Every service or application on a network carries its own set of risks and vulnerabilitites and increases and organization's overall attack surface.
+
+- **Zero-day attacks**: A zero day attack is an exploit that was previously unknown. CSPs are more likely to know about a zero day attack occurring before a traditional IT organization does. CSPs have ways of patching hypervisors and migrating workloads to other virtual machines.
+
+- **Visibility and Tracking**: Network administratos have access tho every data packet crossing the network with both on-premise and cloud networks.
+
+This kind of visibility is also offered in the cloud through flow logs and tools, such as packet mirroring. CSPs take responsibility for security in the cloud, but they do not allow the organizations that use their infrastructure to monitor traffic on the CSP’s servers. Many CSPs offer strong security measures to protect their infrastructure. Still, this situation might be a concern for organizations that are accustomed to having full access to their network and operations. CSPs
+
+- **Things change fast in the cloud**: CSPs are large organizations that work hard to stay up-to-date with technology advancements. For organizations that are used to being in control of any adjustments made to their network, this can be a potential challenge to keep up with.
+
+#### Cryptography and Cloud Security
+
+**Cloud Security Hardening Techniques:**
+
+- **Identity and Access Management (IAM):**  
+  Manages digital identities and controls user access to cloud resources.
+
+- **Hypervisors:**
+
+  - Type 1: Run directly on hardware (e.g., VMware ESXi) — used by cloud providers.
+  - Type 2: Run within an OS (e.g., VirtualBox).  
+    Vulnerabilities can lead to VM escapes, though customers rarely manage hypervisors directly.
+
+- **Baselining:**  
+  Establishes reference points for cloud environment configurations (e.g., access restrictions, encryption, threat detection).
+
+---
+
+**Cryptography in the Cloud:**
+
+- **Purpose:**  
+  Ensures data integrity and confidentiality using encryption and key management.
+
+- **Encryption:**  
+  Transforms data into unreadable ciphertext using encryption keys.
+
+- **Cryptographic Erasure (Crypto-Shredding):**  
+  Destroys encryption keys to make cloud data irretrievable.
+
+---
+
+**Key Management:**
+
+- **Trusted Platform Module (TPM):**  
+  Securely stores credentials and encryption keys.
+
+- **Cloud Hardware Security Module (CloudHSM):**  
+  Provides secure cryptographic key storage and processing.
+
+- **Customer Responsibilities:**  
+  Customers may manage their own keys and must ensure key confidentiality. CSPs limit support if customer-managed keys are lost or compromised.
+
+- **CSP Oversight:**  
+  Customers can request audit reports from CSPs. FEDRAMP provides a list of verified CSPs for federal contractors.
