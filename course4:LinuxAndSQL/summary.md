@@ -574,3 +574,53 @@ WHERE NOT country = 'USA' AND NOT country = 'Canada';
 Returns customers **not** in either USA **or** Canada.
 
 ---
+
+### SQL Joins
+
+#### Inner Join
+
+![alt text](/course4:LinuxAndSQL/resources/inner-join.png)
+
+```SQL
+SELECT \*
+
+FROM employees
+
+INNER JOIN machines ON employees.device_id = machines.device_id;
+```
+
+#### Left Join
+
+![alt text](/course4:LinuxAndSQL/resources/left-join.png)
+
+```SQL
+SELECT *
+
+FROM employees
+
+LEFT JOIN machines ON employees.device_id = machines.device_id;
+```
+
+#### Right Join
+
+![alt text](/course4:LinuxAndSQL/resources/right-join.png)
+
+```SQL
+SELECT *
+
+FROM employees
+
+RIGHT JOIN machines ON employees.device_id = machines.device_id;
+```
+
+#### Full Outer Join
+
+![alt text](/course4:LinuxAndSQL/resources/outer-join.png)
+
+```SQL
+SELECT *
+
+FROM employees
+
+FULL OUTER JOIN machines ON employees.device_id = machines.device_id;
+```
