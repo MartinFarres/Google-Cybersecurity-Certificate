@@ -108,3 +108,97 @@ These functions are commonly used as an informative reference to help organizati
 ## Module 2: Protect Organizational Assets
 
 ### Safeguard Information
+
+**Security Controls** are safeguards designed to reduce specific security risks.
+
+Types of security controls:
+
+- Technical: Technologies to protect assets. Encryption, authentication systems.
+- Operational: Mantaining the day to day environment. Training, incident reponse.
+- Managerial: Center around how the other two reduced risks. Policies, standards and procedures
+
+**Information privacy** is the protection of unauthorized access and distribution of data.
+
+Security controls should limit the access based on the user and situation. This goes with the concept of the **Principle of least privilige**, is the concept of granting only the minimal access and authorization required to complete a task or funcion.
+
+**Data Custodian**: Anyone or anything that's responsible fot the safe handling, transport and storage of information.
+
+#### The Data Lifecycle
+
+![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/data-lifecycle.png)
+
+#### Data Lifecycle and Governance
+
+Organizations must protect data throughout its entire lifecycle—**collect**, **store**, **use**, **archive**, and **destroy**—to maintain confidentiality, integrity, and availability. A **data governance** framework assigns clear roles:
+
+- **Data Owner**: defines access, usage, and retention policies
+- **Data Custodian**: implements security controls and handles data safely
+- **Data Steward**: enforces governance policies
+
+Effective governance combines people, processes, and technology to ensure data remains private and recoverable. Special categories of sensitive information—**PII** (identifies individuals), **PHI** (health data under HIPAA/GDPR), and **SPII** (highly sensitive PII like credentials)—require stricter controls. By embedding security policies at each stage and respecting regulatory requirements, organizations can mitigate risks and uphold data privacy.
+
+#### Information Security vs. Information Privacy
+
+- **Privacy** governs how personal data is collected, used, and shared—ensuring individuals control their own information and consent to its processing.
+- **Security (InfoSec)** focuses on protecting data in all states (at rest, in use, in transit) from unauthorized access or threats.
+
+A retail example: a company must disclose what customer data (age, location) it collects and allow opt‑out (privacy), then implement access controls, encryption, and monitoring to keep that data safe (security).
+
+Key regulations—**GDPR**, **PCI DSS**, and **HIPAA**—define both privacy rights and required security measures. Organizations validate compliance through **audits** (periodic reviews against standards) and **assessments** (regular checks of security resilience), maintaining both data privacy and robust defenses.
+
+### Encryption Methods
+
+#### Public Key Infraestructure (PKI)
+
+is an encryption framework that secures the exchange of information online.
+
+**Asymetric encryprion**: The use of a public and private key pair for encryption and decryption of data.
+**Symetric encryption**: The use of a single secret key to exchange information.
+
+#### PKI Process
+
+1. Exchange of encrypted information.
+2. Establish trust using a system of digital certificates
+
+**Digital Certificate** is a file that verifies the identity of a public key holder.
+![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/obtaining-digital-certificate.png)
+
+#### Encryption Essentials: Key Length & Algorithms
+
+- **Key Length & Security Trade‑off**
+  Longer keys exponentially increase brute‑force resistance but incur slower processing. Balancing performance and protection is crucial for modern systems.
+
+- **Symmetric Ciphers**
+
+  - **3DES**: Applies three 56‑bit DES keys (168‑bit effective), now waning due to data‑volume limits.
+  - **AES**: Supports 128, 192, or 256‑bit keys; 128‑bit AES is estimated to resist brute‑force attacks for billions of years.
+
+- **Asymmetric Ciphers**
+
+  - **RSA**: Uses paired public/private keys of 1,024 to 4,096 bits for highly sensitive data.
+  - **DSA**: NIST standard with 2,048‑bit keys, often used alongside RSA in PKI.
+
+- **Key Generation & Maintenance**
+  Tools like OpenSSL create and manage key pairs; keeping such software up‑to‑date (e.g., post‑Heartbleed) is vital.
+
+- **Kerckhoff’s Principle**
+  Security must rely solely on secret keys, not on obscuring algorithm details.
+
+- **Real‑World Use & Compliance**
+  Hybrid encryption—public‑key for setup, symmetric for bulk data—underpins secure web sessions and meets regulations like FIPS 140‑3 and GDPR.
+
+#### Lab - Decrypting and Encrypting messages
+
+```bash
+cat .leftShift3 | tr "d-za-cD-ZA-C" "a-zA-Z"
+```
+
+The `tr` command translates text from one set of characters to another, using a mapping. The first parameter to the `tr` command represents the input set of characters, and the second represents the output set of characters. Hence, if you provide parameters “abcd” and “pqrs”, and the input string to the tr command is “ac”, the output string will be “pr".
+
+```bash
+openssl aes-256-cbc -pbkdf2 -a -d -in Q1.encrypted -out Q1.recovered -k ettubrute
+```
+
+```
+the openssl command reverses the encryption of the file with a secure symmetric cipher, as indicated by AES-256-CBC. The -pbkdf2 option is used to add extra security to the key, and -a indicates the desired encoding for the output. The -d indicates decrypting, while -in specifies the input file and -out specifies the output file. The -k specifies the password, which in this example is ettubrute.
+```
