@@ -1,12 +1,12 @@
 # Assets, Threats, and Vulnerabilities
 
-**Module 1: Introduction to Asset Security**
+[**Module 1: Introduction to Asset Security**](#module-1-introduction-to-asset-security)
 
-**Module 2: Protect Organizational Assets**
+[**Module 2: Protect Organizational Assets**](#module-2-protect-organizational-assets)
 
-**Module 3: Vulnerabilities in Systems**
+[**Module 3: Vulnerabilities in Systems**](#module-3-vulnerabilities-in-systems)
 
-**Module 4: Threats to asset Security**
+[**Module 4: Threats to asset Security**]()
 
 ---
 
@@ -199,6 +199,115 @@ The `tr` command translates text from one set of characters to another, using a 
 openssl aes-256-cbc -pbkdf2 -a -d -in Q1.encrypted -out Q1.recovered -k ettubrute
 ```
 
+The openssl command reverses the encryption of the file with a secure symmetric cipher, as indicated by AES-256-CBC. The -pbkdf2 option is used to add extra security to the key, and -a indicates the desired encoding for the output. The -d indicates decrypting, while -in specifies the input file and -out specifies the output file. The -k specifies the password, which in this example is ettubrute.
+
+#### Non-repudiation and Hashing
+
+**Non-repudiation**: The concept that the authenticity of information can't be denied.
+
+```bash
+sha256sum output.png
+b50581ab859ee9de0f7a31af9be332d091f0146b64adecf0871b9db2c4c445e1  output.png
 ```
-the openssl command reverses the encryption of the file with a secure symmetric cipher, as indicated by AES-256-CBC. The -pbkdf2 option is used to add extra security to the key, and -a indicates the desired encoding for the output. The -d indicates decrypting, while -in specifies the input file and -out specifies the output file. The -k specifies the password, which in this example is ettubrute.
-```
+
+#### Evolution of Hash Functions
+
+Hash functions are fundamental for data integrity and non‑repudiation, transforming arbitrary‑length input into fixed‑size digests.
+
+**Origins & MD5**
+
+- Early hashes like **MD5** (developed by Ronald Rivest in the 1990s) produce a 128‑bit value (32‑character hex).
+- MD5 enabled quick integrity checks over networks but soon proved vulnerable: its limited output space allowed attackers to craft **collisions** (different inputs mapping to the same hash).
+
+**Collision Resistance & the SHA Family**
+![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/hash-collisions.png)
+
+- To mitigate collision attacks, NIST standardized the **SHA** series:
+
+  - **SHA‑1** (160‑bit)—later found weak against collisions
+  - **SHA‑224**, **SHA‑256**, **SHA‑384**, **SHA‑512**—offering progressively larger digests and stronger collision resistance
+
+- Longer hash outputs exponentially increase the effort needed for brute‑force or collision attacks.
+
+**Password Storage & Rainbow Tables**
+![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/salt.png)
+
+- Storing raw hashes in user databases exposes them to **rainbow‑table** attacks—precomputed dictionaries mapping hash → plaintext.
+- Attackers can quickly reverse common passwords by matching stolen hashes against large lookup tables.
+
+**Salting & Best Practices**
+
+- A unique, random **salt** appended to each input before hashing produces distinct digests even for identical inputs, rendering rainbow tables ineffective.
+- Strong hashing schemes combine salts with algorithms like **bcrypt**, **scrypt**, or **Argon2**, which also incorporate computational cost factors to slow brute‑force attempts.
+
+By evolving from MD5 through the SHA family and adopting salting and key‑stretching techniques, modern systems achieve robust protection against integrity and authentication attacks.
+
+### Authentication, Authorization and Accounting
+
+**Access Controls** are security controls that manage access, authorization, and accountability of information.
+
+#### AAA framework - Authentication
+
+They ask anything attempting to access information this simple question: _who are you?_
+
+**Factors of authentication:**
+
+1. Knowledge: something the user knows
+2. Ownership: something the user possesses
+3. Characteristics: something the user is
+
+**Single sign-on (SSO)** A technology that combines several different logins into one.
+SSO works by automating how trust is established between a user and a service provider. Rather than placing the responsibility on an employee or customer, SSO solutions use trusted third-parties to prove that a user is who they claim to be. This is done through the exchange of encrypted access tokens between the identity provider and the service provider.
+
+Similar to other kinds of digital information, these access tokens are exchanged using specific protocols. SSO implementations commonly rely on two different authentication protocols: LDAP and SAML. LDAP, which stands for Lightweight Directory Access Protocol, is mostly used to transmit information on-premises; SAML, which stands for Security Assertion Markup Language, is mostly used to transmit information off-premises, like in the cloud.
+
+![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/sso.png)
+
+**Multi-factor authentication (MFA)**
+
+#### AAA Framework - Authorization
+
+Determines what the user is allowed to do.
+
+**Separation of duties**: The principle that users should not be given levels of authorization that would allow them to misuse a system.
+
+Securing data over a network: HTTP basic auth and OAuth.
+
+- **Basic auth** works by sending an identifier every time a user communicates with a web page. Vulnerable to attacks because it transmits usernames and password openly over the network. Should use HTTPS
+
+- **OAuth**: Is an open-standard authorization protocol that shares designated access between applications. nstead of requesting and sending sensitive usernames and passwords over the network, OAuth uses API tokens to verify access between you and a service provider.
+
+**API Token**: is a small block of encrypted code that contains information about a user.These tokens contain things like your identity, site permissions, and more.
+
+#### AAA Framework - Accounting
+
+Practice of monitor the access logs of a system. Who, When and What they used.
+
+A **session** is a sequence of network HTTP basic auth requests and responses associated with the same user, like when you visit a website.
+
+Two actions are triggered when the session begins. The first is the creation of a **session ID**. A session ID is a unique token that identifies a user and their device while accessing the system. Session IDs are attached to the user until they either close their browser or the session times out.
+
+The second action that takes place at the start of a session is an exchange of **session cookies** between a server and a user's device. A session cookie is a token that websites use to validate a session and determine how long that session should last. When cookies are exchanged between your computer and a server, your session ID is read to determine what information the website should show you.
+
+**Session hijacking** is an event when attackers obtain a legitimate user's session ID.
+
+#### Identity and Access Management (IAM)
+
+Identity and Access Management (IAM) is the practice of ensuring that only the right users, devices, or software gain access to organizational resources at the right time and for the right reasons. IAM builds on the **principle of least privilege**—granting only necessary rights—and **separation of duties**—dividing critical functions among multiple roles to prevent misuse.
+
+Key IAM components include:
+
+- **Authentication**: Verifying identity via factors you know (password), have (token), or are (biometrics), often strengthened with SSO and MFA.
+- **User Provisioning/Deprovisioning**: Creating, updating, and removing digital identities and their permissions as personnel join, change roles, or leave.
+- **Authorization Models**:
+
+  - **MAC** (Mandatory Access Control): Centralized, non‑discretionary, need‑to‑know access. Access to information must be granted manually by a central authority or system administrator (e.g., military).
+    ![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/MAC.png)
+  - **DAC** (Discretionary Access Control): Data owners grant permissions (e.g., file sharing).
+    ![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/DAC.png)
+  - **RBAC** (Role‑Based Access Control): Access rights tied to job roles.
+    ![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/RBAC.png)
+
+Effective IAM relies on integrated directories, policy engines, and audit systems—whether custom‑built or third‑party—to automate access control, minimize errors, and support a secure environment.
+
+## Module 3: Vulnerabilities in Systems
