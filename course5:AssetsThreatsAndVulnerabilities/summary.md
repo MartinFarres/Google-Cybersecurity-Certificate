@@ -6,7 +6,7 @@
 
 [**Module 3: Vulnerabilities in Systems**](#module-3-vulnerabilities-in-systems)
 
-[**Module 4: Threats to asset Security**]()
+[**Module 4: Threats to asset Security**](#module-4-threats-to-asset-security)
 
 ---
 
@@ -545,3 +545,202 @@ Effective defenses combine technical and managerial controls:
 - **Strong Password Policies**: Enforce length, complexity, lockout thresholds, and regular rotation—expanding the keyspace and delaying attackers.
 
 By layering these measures—secure storage of credentials, user identity verification, human‑only challenges, and robust policies—organizations can drastically reduce the risk and impact of brute‑force compromises.
+
+## Module 4: Threats to asset Security
+
+### Social Engineering
+
+A manipulation technique that exploits human error to gain private information, access or valuables.
+
+Stages of social engineering:
+
+1. Prepare: Attackers got info about their target and determine the best way to exploit them.
+2. Establish trust: Open a line of communication.
+3. Use persuasion tactics: Attacker manipulates the target into volunteering info.
+4. Disconnect from the target: After the attackers got what they want, they dissapear to cover their tracks.
+
+Preventing Social Engineering:
+
+- Implementing managerial controls
+- Staying informed of trends
+- Sharing your knowledge with others.
+
+#### Social Engineering Tactics and Defenses
+
+Social engineering exploits human trust and error to bypass technical controls, making it easier for attackers to gain access or information. Common tactics include **baiting** (e.g., infected USBs), **phishing** emails, **quid pro quo** scams (fake “help desk” offers), **tailgating** into secure areas, and **watering‑hole** attacks on frequently visited websites. High‑profile incidents like the 2020 Twitter Hack demonstrate how simple impersonation can yield devastating results.
+
+Defending against social engineering requires a **multi‑layered approach**:
+
+- **User awareness** through training on spotting suspicious messages, scrutinizing sender details, and resisting “too good to be true” offers.
+- **Technical controls** such as email filtering, CAPTCHAs, block lists, and MFA to impede automated or credential‑based attacks.
+- **Organizational measures** including clear policies for handling unsolicited requests and regular testing (e.g., phishing drills).
+
+By combining employee education with robust security controls, organizations can significantly reduce the risk and impact of social engineering attacks.
+
+#### Phising
+
+Attackers who carry out these attacks commonly use **phishing kits**. A phishing kit is a collection of software tools needed to launch a phishing campaign. People with little technical background can use one of these kits.
+
+Phising kit tools:
+
+- Malicious attachments
+- Fake data-collection forms
+- Fraudulent web links
+
+**Smishing** is the use of text messages to obtain sensitive information or to impersonate a known source.
+
+**Vishing** is the exploitation of electronic voice communication to obtain sensitive information or impersonate a known source.
+
+**Spear phishing** is a subset of email phishing in which specific people are purposefully targeted, such as the accountants of a small business.
+
+**Whaling** refers to a category of spear phishing attempts that are aimed at high-ranking executives in an organization.
+
+Phising security measures
+
+- Anti-phising policies
+- Employee training resources
+- Email filters
+
+### Malware
+
+#### Malware Types
+
+**Virus**
+Malicious code that must be executed by the user to spread and damage data or software. Often delivered via phishing links or infected attachments.
+
+**Worm**
+Self‑replicating malware that spreads across networks or shared drives once installed. Example: the Blaster worm, which looped Windows XP/2000 machines into endless reboots.
+
+**Trojan (Trojan Horse)**
+Disguises itself as legitimate software. Users install it unknowingly, granting attackers backdoor access, spyware, or other payloads.
+
+**Adware**
+Legitimate software that displays ads for revenue. Malicious adware (a PUA) bundles unwanted ads or additional malware, even after users opt out.
+
+**Spyware**
+PUA that secretly gathers and sells personal data. Often bundled with other freeware, it operates without the user’s consent.
+
+**Scareware**
+PUA that frightens users with fake alerts to trick them into downloading or purchasing bogus security solutions.
+
+**Fileless Malware**
+Resides only in memory and leverages existing system tools, leaving no trace on disk. Detection requires advanced memory forensics.
+
+**Rootkit**
+Installs a hidden backdoor for administrative control. Often delivered via a dropper (initial installer) and loader (fetches additional payloads).
+
+**Botnet**
+Network of infected machines (“bots”) under a single attacker’s control. Spread by viruses, worms, or trojans to execute large‑scale attacks.
+
+**Ransomware**
+Encrypts an organization’s data and demands payment for decryption (e.g., WannaCry). Increasingly sophisticated and disruptive.
+
+**Cryptojacking**
+A form of malware that installs software to illegaly mine cryptocurrencies.
+
+### Web-Based Exploits
+
+Malicious code or behavior that's used to take advantage of coding flaws in a web application
+
+#### Cross-site-scripting
+
+**Injection Attacks** Malicious code inserted into a vulnerable application.
+
+**Cross-site-scripting(XSS)**:An injection attack that inserts code into a vulnerable website or web application.
+
+Types of XSS attacks:
+
+1. Reflected: An instance when malicious script is sent to a server and activated during the server's response.
+2. Stored: An instance when malicious script is injected directly on the server.
+3. DOM-based: DOM (Document Object Model) attack is an instance when malicious script exists in the webpage a browser loads.
+   ![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/DOM-based-XSS.png)
+
+#### Exploitable Gaps in Databases
+
+**SQL injection** is an attack that executes unexpected queries on a database.
+![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/sql-injection-login-form.png)
+an attacker might insert additional SQL code. This could cause the server to run a harmful query of code that it wasn't expecting. Malicious hackers can target these attack vectors to obtain sensitive information, modify tables and even gain administrative rights to the database.
+
+**Prepared Statement** is a coding technique that executes SQL statements before passing them on to the database.
+
+#### Preventing SQL Injection Attacks
+
+SQL injection exploits unvalidated user input to execute malicious database queries. There are three main classes of SQL injection:
+
+- **In‑band**: Uses the same channel to send the attack and receive results (e.g., entering a payload in a search box that returns data in the same page).
+- **Out‑of‑band**: Leverages a secondary channel to exfiltrate data (e.g., forcing the database to connect back to an attacker’s server).
+- **Inferential (Blind)**: Infers database structure by observing application behavior or response times, without directly seeing query results.
+
+Injection vulnerabilities arise whenever user‑supplied text is concatenated into SQL statements—login forms, search fields, or comment boxes are common targets. To defend against these attacks, developers and security teams should:
+
+1. **Use Prepared Statements** (parameterized queries) to separate code from data.
+2. **Sanitize Inputs** by removing or neutralizing dangerous characters before they reach the database.
+3. **Validate Inputs** to ensure they match the expected format (e.g., email regex, numeric ranges).
+
+Working closely with application developers and consulting resources like OWASP’s SQL Injection Prevention Cheat Sheet ensures robust defenses and reduces the risk of unauthorized data access or manipulation.
+
+### Threat Modeling
+
+The process of identifying assets, their vulnerabilities, and how each is exposed to threats.
+
+Threat Model Steps:
+
+1. Define the scope
+2. Identify threats
+3. Characterize the environment
+4. Analyze threats
+5. Mitigate Risks
+6. Evaluat Findings.
+
+#### PASTA: The Process for Attack Simulation and Threat Analysis
+
+PASTA threat model framework:
+
+1. Define business and security objectives
+2. Define the technical scope
+3. Decompose the application
+4. Perform a threat analysis
+5. Perform a vulnerability analysis
+6. Conduct attack modeling
+7. Analyze risk and impact
+
+#### In-Depth Traits of an Effective Threat Model
+
+An effective threat model is a deliberate, repeatable process that uncovers how an application or system can be compromised and then guides the design of mitigations to reduce or eliminate those risks. Key characteristics include:
+![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/threat-modeling-steps.png)
+
+1. **Comprehensive Scope Definition**
+
+   - Clearly document the application’s functionality, data flows, integrations, and user personas.
+   - Identify all entry points (APIs, user interfaces, third‑party services) and critical assets (databases, secrets, sensitive files).
+
+2. **Systematic Threat Identification**
+
+   - Use established frameworks (e.g., STRIDE, PASTA, Trike, VAST) to enumerate classes of attacker goals:
+
+     - **STRIDE** covers Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, and Elevation of privilege.
+     - **PASTA** emphasizes real‑world attack simulation and risk scoring over seven stages.
+
+   - Combine automated scanners with manual brainstorming sessions to surface both technical and business logic threats.
+
+3. **Environment & Vulnerability Characterization**
+
+   - Map out the deployment architecture (on‑premises, cloud, hybrid), communication channels, and trust boundaries.
+   - Catalog existing vulnerabilities (e.g., outdated libraries, misconfigurations, weak authentication) via pen tests and code reviews.
+
+4. **Risk Analysis and Prioritization**
+
+   - Assess each threat by likelihood and impact to calculate risk levels.
+   - Prioritize high‑risk items (e.g., unpatched critical CVEs, public‑facing services) for immediate remediation.
+
+5. **Risk Mitigation & Controls**
+
+   - Define security controls—API input validation, least‑privilege access, encryption, and anomaly detection—aligned to each identified threat.
+   - Incorporate defenses into design artifacts (data flow diagrams, sequence diagrams) and track changes in a requirements backlog.
+
+6. **Continuous Evaluation & Collaboration**
+
+   - Revisit the model after code changes, architecture revisions, and new feature releases.
+   - Engage cross‑functional teams (developers, architects, QA, operations) by asking: “What can go wrong?”, “How do we detect or block this?”, and “Have we covered every data path?”
+
+By iterating through these steps throughout the software development lifecycle and leveraging a mix of frameworks, hands‑on testing, and stakeholder input, organizations build resilient applications capable of withstanding evolving threats.
