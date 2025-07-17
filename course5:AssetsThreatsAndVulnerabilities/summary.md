@@ -311,3 +311,237 @@ Key IAM components include:
 Effective IAM relies on integrated directories, policy engines, and audit systems—whether custom‑built or third‑party—to automate access control, minimize errors, and support a secure environment.
 
 ## Module 3: Vulnerabilities in Systems
+
+### Flaws in the system
+
+**Exploits** is a way of taking advantage of a vulnerability.
+
+#### Vulnerability Management
+
+1. Identify Vulnerabilities
+2. Consider Potential exploits
+3. Prepare Defenes against threats
+4. Evaluate those defenses
+
+#### Securing CI/CD Pipelines: Overview & Key Vulnerabilities
+
+**What is CI/CD and Why It Matters**
+CI/CD automates the software release process from code commit through deployment.
+
+- **Continuous Integration (CI):** Developers merge changes frequently into a central branch. Automated builds and tests run on every commit to catch integration issues early.
+- **Continuous Delivery (CD):** Every passing build is automatically pushed to a staging environment and kept in a deployable state, with a manual approval gate before production.
+- **Continuous Deployment (CD):** Builds that clear all tests and checks are deployed directly to production without human intervention.
+
+By embedding build, test, and deployment steps into an automated pipeline, teams accelerate release cycles and maintain high software quality—provided the pipeline itself is secured.
+![alt text](/course5:AssetsThreatsAndVulnerabilities/resources/ci-cd.png)
+
+**Common CI/CD Pipeline Vulnerabilities**
+
+- **Insecure Dependencies:** Unpatched third‑party libraries can introduce known CVEs during automated builds.
+- **Misconfigured Permissions:** Weak or overly broad access to CI/CD tools and repositories allows unauthorized changes.
+- **Missing Automated Security Tests:** Omitting SAST, DAST, or compliance checks lets vulnerabilities slip into production.
+- **Exposed Secrets:** Hard‑coded API keys, passwords, or tokens in code or pipeline settings can be easily extracted by attackers.
+- **Unsecured Build Environments:** Compromised build servers or containers enable attackers to inject malicious code or steal artifacts.
+
+**Defense‑in‑Depth Best Practices**
+
+1. **Embed Security Early (DevSecOps):** Integrate automated security scans (SAST, DAST, SCA) into every pipeline stage.
+2. **Enforce Least Privilege:** Apply RBAC and MFA to restrict who can view or modify pipeline configurations.
+3. **Automate Dependency Management:** Use tools like Dependabot or Snyk to keep libraries and plugins up-to-date.
+4. **Secure Secrets Management:** Store and rotate credentials in vaults (e.g., HashiCorp Vault, AWS Secrets Manager) instead of in code.
+5. **Harden Build Infrastructure:** Isolate builds in secure containers or VMs and regularly patch build servers.
+
+By understanding – and embedding security throughout – your CI/CD process, you ensure rapid, reliable, and resilient software delivery.
+
+#### Defense in Depth
+
+A layered approach to vulnerability management that reduces risk. The castle approach.
+
+Defense in Depth Strategy:
+
+1. **Perimeter Layer:** User authentication layer that filters external access. It's function is to only allowed trusted partners to reach the next layer of defense.
+2. **Network Layer**: Closly aligned with authorization. Firewalls.
+3. **Endpoint Layer**: Devices that have access to the network. Antivirus.
+4. **Application Layer**: All interfaces that interact with tecnology. Security measures are program into the application. MFA.
+5. **Data Layer**: Here we have the SPII data. Assets Classification.
+
+#### Common Vulnerabilities and Exposures
+
+**Exposure** is a mistake that can be exploited by a threat.
+
+[**Common Vulnerabilities and Exposure List (CVE List)**](https://www.cve.org/) is an openly accessible dictionary of known vulnerabilities and exposures.
+
+**CVE Numbering Authority (CNA)** is an organization that volunteers to analyze and distribute information on elegible CVEs.
+
+CVE list criteria:
+
+1. Independent of other issues
+2. Recognized as a potential security risk
+3. Submitted with supporting evidence
+4. Only affect one codebase.
+
+#### Common Vulnerabilities
+
+Businesses often base critical security decisions on the OWASP Top 10—a guide for designing new software—whereas the CVE® list helps identify flaws in existing programs. Below are the most common vulnerabilities ranked by OWASP:
+
+1. Broken Access Control
+
+Failures in enforcing user permissions can allow unauthorized disclosure, modification, or destruction of data. For example, a blog that lets visitors post comments but not delete articles may be misconfigured—enabling attackers to manipulate or erase content, or even gain access to other applications.
+
+2. Cryptographic Failures
+
+Weak or missing encryption exposes sensitive data (e.g., PII) to theft. Using outdated algorithms like MD5 for hashing can lead to data breaches, and non‑compliance with privacy laws (such as GDPR) can incur heavy penalties.
+
+3. Injection
+
+When untrusted input is sent to an interpreter (e.g., SQL, OS commands), attackers can execute malicious code under the guise of normal application behavior. A vulnerable login form, for instance, may allow credential theft or database manipulation via SQL injection.
+
+4. Insecure Design
+
+Lack of built‑in security controls during application design leads to systemic weaknesses (e.g., missing input validation or improper error handling). Such flaws increase susceptibility to injection, malware, and other attacks.
+
+5. Security Misconfiguration
+
+Default settings or unpatched misconfigurations across servers, frameworks, or platforms can expose sensitive functionality. For example, deploying a web server with default credentials or open ports invites unauthorized access.
+
+6. Vulnerable and Outdated Components
+
+Relying on unmaintained open‑source libraries or plugins introduces known CVEs into your application. Regularly updating and scanning dependencies is crucial to prevent exploitation of outdated components.
+
+7. Identification and Authentication Failures
+
+Flaws in verifying user identity—such as broken login flows or weak session management—allow attackers to impersonate legitimate users. A compromised Wi‑Fi router login illustrates how identification failures can expose networks.
+
+8. Software and Data Integrity Failures
+
+Insufficient verification of software updates or CI/CD artifacts can enable supply‑chain attacks. The 2020 SolarWinds breach is a prominent example, where malicious code injected into legit updates was distributed to thousands of customers.
+
+9. Security Logging and Monitoring Failures
+
+Inadequate logging or alerting delays breach detection and incident response. Without comprehensive audit trails (e.g., user logins, configuration changes), it’s difficult to investigate or contain security incidents.
+
+10. Server‑Side Request Forgery (SSRF)
+
+When a web application fails to validate outgoing requests, attackers can coerce the server into fetching or modifying internal resources. SSRF can expose sensitive metadata or grant lateral movement within a private network.
+
+---
+
+By understanding and proactively addressing these vulnerabilities, organizations can design, build, and maintain more resilient applications.
+
+#### OSINT Tools
+
+There’s an enormous amount of open-source information online. Finding relevant intelligence requires specialized tools and techniques. Here are a few examples to explore:
+
+- **[VirusTotal](https://www.virustotal.com/)**
+  A free service that analyzes suspicious files, domains, URLs, and IP addresses for malicious content by aggregating results from multiple antivirus engines and website scanners.
+
+- **[MITRE ATT\&CK®](https://attack.mitre.org/)**
+  A comprehensive knowledge base of adversary tactics and techniques based on real-world observations, useful for mapping attacker behavior and planning defensive strategies.
+
+- **[OSINT Framework](https://osintframework.com/)**
+  A web-based directory of OSINT tools organized by category (e.g., social media, whois, metadata), making it easy to discover specialized utilities for various information sources.
+
+- **[Have I Been Pwned](https://haveibeenpwned.com/)**
+  A searchable database that lets you check whether an email address or domain has appeared in known data breaches.
+
+### Identify System Vulnerabilities
+
+#### Vulnreability Assessment
+
+The internal review process of an organization's security systems.
+
+Vulnerability Assessment Process:
+
+1. Identification
+2. Vulnerability Analysis. Try to find the source
+3. Risk Assessment. Asign a score to the risk. How severe it is and how likely it is.
+4. Remediation. Addressing the Risk.
+
+#### Vulnerability Scanning
+
+A **vulnerability scanner** is software that automatically compares known vulnerabilities and exposures against the technologies on the network. In general, these tools scan systems to find misconfigurations or programming flaws.
+
+Vulnerability scanners are meant to be non-intrusive. Meaning, they don’t break or take advantage of a system like an attacker would. Instead, they simply scan a surface and alert you to any potentially unlocked doors in your systems.
+
+_External scans_ test the perimeter layer outside of the internal network. They analyze outward facing systems, like websites and firewalls. These kinds of scans can uncover vulnerable things like vulnerable network ports or servers.
+
+_Internal scans_ start from the opposite end by examining an organization's internal systems. For example, this type of scan might analyze application software for weaknesses in how it handles user input.
+
+_Authenticated scans_ might test a system by logging in with a real user account or even with an admin account. These service accounts are used to check for vulnerabilities, like broken access controls.
+
+_Unauthenticated scans_ simulate external threat actors that do not have access to your business resources. For example, a scan might analyze file shares within the organization that are used to house internal-only documents. Unauthenticated users should receive "access denied" results if they tried opening these files. However, a vulnerability would be identified if you were able to access a file.
+
+_Limited scans_ analyze particular devices on a network, like searching for misconfigurations on a firewall.
+
+_Comprehensive scans_ analyze all devices connected to a network. This includes operating systems, user databases, and more.
+
+#### Penetration Testing
+
+A penetration test, or pen test, is a simulated attack that helps identify vulnerabilities in systems, networks, websites, applications, and processes. The simulated attack in a pen test involves using the same tools and techniques as malicious actors in order to mimic a real life attack. Since a pen test is an authorized attack, it is considered to be a form of ethical hacking.
+
+### Protect All entry points
+
+An important part of this is getting a sense of their attack surface. An **attack surface** is all the potential vulnerabilities that a threat actor could exploit. Analyzing the attack surface is usually the first thing security teams do.
+
+- **Physical Attack Surface**: made up of people and their devices. This surface can be attacked from both inside and outside the organization.In general, the physical attack surface should be filled with obstacles that deter attacks from happening. We call this process security hardening. **Security hardening** is the process of strengthening a system to reduce its vulnerabilities and attack surface. In other words, hardening is the act of minimizing the attack surface by limiting its points of entry.
+
+- **Digital Attack Surface**: includes everything that's beyond our organization's firewall. It includes anything that connects to an organization online. Cloud computing has essentially expanded the digital attack surface. Quicker access to information is something we all benefit from, but it comes with a cost.Organizations of all sizes are under more pressure to defend against threats coming from different entry points.
+
+#### Threat Actors and Attack Surfaces
+
+- **Threat Actor**: Any person or group posing a security risk—intentional or accidental—inside or outside the organization.
+
+  - **Competitors**: Rival companies seeking to exploit leaked information.
+  - **State Actors**: Government intelligence agencies.
+  - **Criminal Syndicates**: Organized crime groups profiting from illicit activity.
+  - **Insider Threats**: Current or former employees who misuse or accidentally expose assets.
+  - **Shadow IT**: Unauthorized technologies (e.g., personal email for work) that bypass governance.
+
+- **Hackers** (umbrella term for unauthorized access):
+
+  - **Unauthorized (Malicious)**: Includes “script kiddies” using pre‑written tools.
+  - **Authorized (Ethical)**: Internal or contracted testers (e.g., bug bounties).
+  - **Semi‑Authorized**: Hacktivists or others with non‑criminal but boundary‑pushing motives.
+
+- **Advanced Persistent Threats (APTs)**: Stealthy, long‑term intrusions—often state‑sponsored—aimed at sustained intelligence gathering or manipulation.
+
+- **Common Attack Vectors**:
+
+  - Physical/direct access
+  - Removable media (USB drives)
+  - Email (phishing) and social media
+  - Wireless networks
+  - Cloud services
+  - Third‑party supply chains
+
+Understanding each actor’s motivation and likely vectors helps security teams tailor defenses and limit an organization’s attack surface.
+
+#### Pathways Through Defenses
+
+**Attack Vector** are the pathways attackers use to penetrate security defenses.
+
+**Practicing an attacker mindset**:
+
+1. Identify a target
+2. Determine how the target can be accessed
+3. Evaluate attack vector that can be exploited
+4. Find the tools and methods of attacks
+
+**Defending attack vectors**:
+
+1. Educating users
+2. Applying the principle of least privilige
+3. Using the right security controls and tools
+
+#### Defending Against Brute‑Force Attacks
+
+Brute‑force attacks—trial‑and‑error guessing of usernames, passwords, or encryption keys—are automated with tools like **Aircrack‑ng**, **Hashcat**, and **John the Ripper**. Variants include **dictionary attacks** (using common credentials), **reverse brute force** (one credential against many systems), and **credential stuffing** (reusing breached logins or hashes).
+
+Effective defenses combine technical and managerial controls:
+
+- **Hashing & Salting**: Adds randomness to password hashes, making precomputed and dictionary attacks impractical.
+- **Multi‑Factor Authentication (MFA)**: Requires additional verification steps, blocking attackers even if passwords are compromised.
+- **CAPTCHA**: Ensures login attempts come from humans, not automated scripts.
+- **Strong Password Policies**: Enforce length, complexity, lockout thresholds, and regular rotation—expanding the keyspace and delaying attackers.
+
+By layering these measures—secure storage of credentials, user identity verification, human‑only challenges, and robust policies—organizations can drastically reduce the risk and impact of brute‑force compromises.
