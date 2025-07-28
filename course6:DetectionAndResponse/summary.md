@@ -472,3 +472,300 @@ By systematically conducting lessons learned sessions, generating clear reports,
 ## Module 4: Network traffic and logs using IDS and SIEM tools
 
 ### Overview of Logs
+
+#### Best Practices for Log Collection and Management
+
+- **Purpose & Types of Logs**
+  Logs are event records (network, system, application, security, authentication) that help answer the 5 W’s of an incident (who, what, when, where, why). Use verbose logging sparingly to capture additional context only when needed.
+
+- **Selective Logging**
+  Avoid “log everything.” Identify critical sources based on your threat model and business requirements, and exclude unnecessary or sensitive data (e.g., PII) to reduce noise, storage costs, and performance impact.
+
+- **Centralized Log Management**
+  Collect logs from all devices into a SIEM or dedicated log server. Centralization prevents tampering, simplifies analysis, and provides a unified search interface.
+
+- **Retention & Compliance**
+  Implement retention policies aligned with industry regulations (e.g., FISMA, HIPAA, PCI DSS, GLBA, SOX). Ensure logs are stored for the required duration and securely purged thereafter.
+
+- **Log Protection & Integrity**
+  Send logs off‑host immediately to a protected central server to guard against deletion or alteration by attackers. Use access controls and checksums to detect unauthorized changes.
+
+By carefully choosing what to log, centralizing and protecting records, and enforcing retention rules, security teams can optimize log analysis, maintain integrity, and meet compliance mandates.
+
+#### Overview of Log File Formats
+
+Security analysts must recognize and parse various log formats to extract meaningful event data. The most common formats include:
+
+---
+
+### JSON
+
+- **Structure:** Key–value pairs, enclosed in `{}` (objects) and `[]` (arrays).
+- **Readable & Flexible:** Lightweight, human‑ and machine‑friendly.
+- **Example Fields:**
+
+  ```json
+  {
+    "Alert": "Malware",
+    "Alert code": 1090,
+    "severity": 10,
+    "User": { "id": "1234", "name": "user" }
+  }
+  ```
+
+---
+
+### Syslog
+
+- **Standard Format:** `<PRI>version timestamp hostname app-name procid [structured-data] message`
+- **Transport:** Uses UDP/TCP on ports 514 (plaintext) or 6514 (TLS).
+- **Components:**
+
+  - **Header:** Timestamp, host, application, message ID.
+  - **Structured Data:** Key–value pairs in `[...]`.
+  - **Message:** Free‑form event description.
+
+---
+
+### XML
+
+- **Markup Language:** Data wrapped in `<tags>...</tags>`, supporting nested elements.
+- **Attributes:** Added within opening tags for metadata (e.g., `<Data Name="SubjectUserSid">…</Data>`).
+- **Hierarchical:** Requires a single root element; children define structured data.
+
+---
+
+### CSV
+
+- **Comma‑Separated:** Each line is a record; fields identified by position.
+- **Simplicity:** Easy to produce but relies on external schema to interpret columns.
+- **Example Line:**
+
+  ```
+  2009-11-24T21:27:09.534255,ALERT,192.168.2.7,1041,10.0.0.50,80,TCP,ALLOWED,...
+  ```
+
+---
+
+### CEF (Common Event Format)
+
+- **Pipe‑Delimited Header:**
+
+  ```
+  CEF:Version|Device Vendor|Device Product|Device Version|Signature ID|Name|Severity|Extension
+  ```
+
+- **Extension:** Optional key–value pairs for additional details.
+- **Often Transported via Syslog:** Prepend syslog timestamp and hostname.
+- **Example:**
+
+  ```
+  Sep 29 08:26:10 host CEF:1|Security|threatmanager|1.0|100|worm stopped|10|src=10.0.0.2 dst=2.1.2.2 spt=1232
+  ```
+
+---
+
+By understanding these formats, analysts can quickly locate critical fields (timestamps, IPs, user IDs) and feed logs into SIEMs or custom parsers for efficient security monitoring and investigation.
+
+### Intrusion Detection Sistems (IDS)
+
+**Telemetry**: The collecion and transmission of data for analysis.
+
+---
+
+An **IDS** is a security tool that monitors and analyzes system or network activity to detect signs of malicious behavior and generate alerts. IDS technologies are essential for identifying and responding to threats in real time.
+
+### 📍 **Types of IDS Technologies**
+
+#### 1. **Host-based IDS (HIDS)**
+
+- **Installed directly on endpoints** (computers, servers).
+- **Monitors** the **local system activity**, including:
+
+  - File system changes
+  - System resource usage
+  - User behavior
+  - Inbound/outbound traffic
+
+- **Use case:** Detecting suspicious behavior on individual devices (e.g., unauthorized software installation).
+
+#### 2. **Network-based IDS (NIDS)**
+
+- **Deployed on network infrastructure** (e.g., routers, switches, or network monitoring appliances).
+- **Monitors** traffic **between multiple devices** on the network.
+- **Analyzes**:
+
+  - Packets
+  - Network flows
+  - Protocol behaviors
+
+- **Use case:** Detecting malicious communication like C2 traffic or scanning activity.
+
+➡️ **Using both HIDS and NIDS** provides **layered visibility**, covering endpoints _and_ the network simultaneously.
+
+---
+
+### 🧠 **Detection Techniques**
+
+Detection techniques define _how_ IDS identifies suspicious or malicious behavior.
+
+#### 1. **Signature-based Detection**
+
+- **How it works:** Matches activity against predefined signatures (patterns of known threats).
+- **Sources of signatures:** IPs, hashes, domain names, malware patterns, TTPs.
+- **Common use:** Anti-malware software, traditional IDS rules.
+
+#### ✅ Advantages:
+
+- Accurate for **known threats**
+- **Low false positives**
+
+#### ❌ Disadvantages:
+
+- Cannot detect **new or unknown threats**
+- **Signatures must be updated regularly**
+- **Easily evaded** by minor changes in attack patterns
+
+---
+
+#### 2. **Anomaly-based Detection**
+
+- **How it works:** Compares activity to a **baseline** of “normal” behavior.
+- Involves:
+
+  - **Training phase:** Learn normal patterns
+  - **Detection phase:** Alert when behavior deviates
+
+#### ✅ Advantages:
+
+- Can detect **zero-day threats** and **unusual behaviors**
+- Helpful for **behavioral-based** security
+
+#### ❌ Disadvantages:
+
+- **High false positive rate**
+- If attacker is present during training, **malicious activity may be normalized**
+
+---
+
+#### 🧩 **Summary Table**
+
+| Feature                 | Signature-Based Detection              | Anomaly-Based Detection                 |
+| ----------------------- | -------------------------------------- | --------------------------------------- |
+| Detects Known Threats   | ✅ Yes                                 | ❌ Not directly                         |
+| Detects Unknown Threats | ❌ No                                  | ✅ Yes                                  |
+| False Positives         | 🔽 Low                                 | 🔼 High                                 |
+| Requires a Baseline     | ❌ No                                  | ✅ Yes                                  |
+| Evasion Resistance      | ❌ Can be evaded by slight changes     | ✅ Harder to evade if baseline is clean |
+| Maintenance             | ✅ Requires frequent signature updates | 🔁 Needs training & tuning              |
+
+#### Components of a detection signature
+
+Components of a NIDS rule
+
+1. **Action**
+
+- Determines the action to take if the rule criteria is met
+- Alert, pass or reject
+
+2. Header
+
+- Source and destination IP addresses
+- Source and destination ports
+- Protocols
+- Traffic Direction
+
+3. Rule Option
+
+![alt text](/course6:DetectionAndResponse/resources/NIDS.png)
+
+### **Splunk Search Methods**
+
+Splunk uses a powerful query language called **Search Processing Language (SPL)** to retrieve and manipulate log data.
+
+#### **Basic SPL Search**
+
+```spl
+index=main fail
+```
+
+- `index=main`: Specifies the dataset to search in.
+- `fail`: Searches for events containing the term “fail”.
+
+#### **Pipes in SPL**
+
+- Use `|` to chain commands.
+
+```spl
+index=main fail | chart count by host
+```
+
+- This returns a chart showing the number of "fail" events per host.
+
+#### **Wildcards**
+
+- `fail*` matches all terms starting with “fail” (e.g., “failed”, “failure”).
+- Use double quotes (`"login failure"`) for **exact phrase matches**.
+
+#### **Benefits**
+
+- Fast and flexible querying.
+- Data transformation and visualization support.
+- Powerful filtering and analysis capabilities.
+
+---
+
+### Google SecOps (Chronicle) Search Methods
+
+Chronicle supports two types of searches:
+
+#### 1. **Unified Data Model (UDM) Search**
+
+- **Default and preferred search method**.
+- Searches through **normalized and indexed** data.
+- Uses structured **UDM fields** like:
+
+  - `metadata.event_type`
+  - `metadata.timestamp`
+  - `principal.hostname`, `principal.ip`
+  - `security_result.action`
+
+#### UDM Search Example:
+
+```udm
+metadata.event_type = "USER_LOGIN"
+```
+
+- Finds all user login events using the normalized metadata.
+
+#### Key UDM Fields:
+
+- `Entities`: Devices, users, or processes.
+- `Event metadata`: Type, time, and context.
+- `Network metadata`: Protocols, IPs, ports.
+- `Security results`: Outcome like “malware blocked”.
+
+#### 2. **Raw Log Search**
+
+- Searches **unstructured, raw logs**.
+- Use when information is **not found** in UDM.
+- **Slower** than UDM searches.
+- Supports keywords like filenames, hashes, IPs.
+
+**Example:**
+
+Search for “malicious.exe” to locate related raw logs.
+
+---
+
+#### Summary Table
+
+| Feature            | Splunk                           | Google SecOps (Chronicle)         |     |
+| ------------------ | -------------------------------- | --------------------------------- | --- |
+| Language Used      | SPL (Search Processing Language) | Field-based syntax (UDM)          |     |
+| Structured Search  | ✅                               | ✅ (via UDM)                      |     |
+| Raw Log Search     | ✅ (via indexes)                 | ✅ (Raw Log Search)               |     |
+| Wildcard Support   | ✅ (`*`)                         | ✅ (within supported fields)      |     |
+| Pipe Support       | ✅ (\`                           | \` for chaining commands)         | ❌  |
+| Best For           | Flexible, customizable search    | Fast, normalized threat hunting   |     |
+| Search Performance | Depends on configuration         | UDM is faster than raw log search |     |
